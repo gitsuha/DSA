@@ -69,11 +69,6 @@ void insertNode(Node*& root, int key)
 		insertNode(root->right, key);
 }
 
-bool checkBST()
-{
-	for (int i )
-}
-
 int main()
 {
 	// 3 5 2 1 4 6 7
@@ -101,7 +96,7 @@ int main()
 	cout << endl;
 	cout << height(root);
 	cout << endl;
-	cout << checkBST(root);
+	//cout << checkBST(root);
 	cout << endl;
 
 	system("pause");
