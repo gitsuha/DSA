@@ -7,23 +7,19 @@ int longestValidParentheses_BF(string s) {
 	if (s.length() == 0)
 		return 0;
 
-	bool start = false;
-	int status = 0, count = 0;
-	for (size_t i = 0; i < s.length(); i++)
+	int count = 0;
+	for (size_t i = 1; i < s.length(); i++)
 	{
-		if (s.at(i) == '(')
-			status++;
-		else if (s.at(i) == ')')
-			status--;
-		if (status == 0)
-			count++;
+		if (s.at(i) == ')')
+			if (s.at(i - 1) == '(')
+				count += 2;
 	}
-	return count * 2;
+	return count;
 }
 
 int main()
 {
-	string str = ")()())"; // ")(())))(())())";
+	string str = /*")()())"; // */")(())))(())())";
 	cout << longestValidParentheses_BF(str) << endl;
 
 	system("pause");
