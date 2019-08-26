@@ -1,37 +1,47 @@
 #include "Header.h"
 
-string rollString(string str, vector<int> a)
+int increment(int x) { return (x + 1); }
+
+string rollString(string str, vector<int> roll)
 {
-	sort(a.begin(), a.end());
 	int len = str.length();
-	vector<int> roll(len, 0);
-	for (size_t i = 0; i < a.size(); i++)
+	vector<int> cumRoll(len, 0);
+	for (size_t i = 0; i < roll.size(); i++)
 	{
-		for (size_t j = 0; j < a[i]; j++)
-		{
-			roll[j]++;
-		}
+		++cumRoll[0];
+		int nRoll = roll[i];
+		if (nRoll >= cumRoll.size())
+			continue;
+		else
+			--cumRoll[nRoll];
 	}
+
+	for (size_t i = 1; i < len; i++)
+		cumRoll[i] = cumRoll[i] + cumRoll[i - 1];
+
 	string res;
 	for (size_t i = 0; i < len; i++)
 	{
-		if (roll[i] > 0)
+		if (cumRoll[i] > 0)
 		{
 			int ci = (int)str.at(i);
 			ci -= 'a';
-			ci += roll[i];
+			ci += cumRoll[i];
 			ci %= 26;
 			ci += 'a';
 			char c = (char)ci;
 			res.push_back(c);
 		}
+		else
+			res.push_back(str.at(i));
 	}
 	return res;
 }
 
 int main()
 {
-	cout << rollString("geeks", { 1, 2, 5 }) << endl;
-	cout << rollString("zzzz", { 1, 2, 4 }) << endl;
+	//cout << rollString("geeks", { 1, 2, 5 }) << endl;
+	cout << rollString("vgxgpuamkx", { 5,5,2,4,7,6,2,2,8,7 }) << endl;
+
 	return 0;
 }
