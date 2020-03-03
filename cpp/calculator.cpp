@@ -5,7 +5,7 @@
 using namespace std;
 
 int calculate(queue<char>& q) {
-	int curr_num = 0, prev_num = 0, res = 0;
+	long long curr_num = 0, prev_num = 0, res = 0;
 	char prev_op = '+';
 
 	while (!q.empty())
