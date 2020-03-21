@@ -47,9 +47,11 @@ class Graph {
         vertices = new HashMap<>();
         edges = new ArrayList<>();
     }
+    
     public void addVertex(Vertex v) {
         vertices.put(v.id, v);
     }
+    
     public void addEdge(char id1, char id2)
     {
         Vertex v1 = vertices.get(id1);
@@ -57,6 +59,7 @@ class Graph {
         v1.adj.add(v2);
 //        edges.add(new Edge(v1, v2));
     }
+    
     public void Reset() {
         time = 0;
         for (Vertex v : vertices.values()) {
@@ -65,6 +68,7 @@ class Graph {
             v.visited = false;
         }
     }
+    
     public void DFSReccur() {
         Reset();
         for (Vertex v : vertices.values()) {
@@ -72,6 +76,7 @@ class Graph {
                 DFSVertex(v);
         }
     }
+    
     private void DFSVertex(Vertex v) {
         v.d = ++time;
         v.visited = true;
@@ -85,58 +90,6 @@ class Graph {
         v.f = ++time;
     }
 
-    public void DFSIter() {
-        Reset();
-        Stack<Object> s = new Stack<>();
-        for (Vertex v : vertices.values()) {
-            s.push(v);
-        }
-        while (!s.isEmpty()) {
-            Object x = s.peek();
-            s.pop();
-            if (x instanceof Vertex)
-                ExploreVertex(x, s);
-            else
-                ExploreEdge(x, s);
-        }
-    }
-
-    private void ExploreVertex(Object o, Stack<Object> s) {
-        Vertex v = (Vertex)o;
-        if (v == null) return;
-        if (!v.visited) {
-            v.visited = true;
-            v.d = ++time;
-            s.push(v);
-            for (Vertex u : v.adj) {
-                s.push(new Edge(v, u));
-            }
-        } else if (v.f == 0) {
-            v.f = ++time;
-        } else return;
-    }
-
-    private void ExploreEdge(Object o, Stack<Object> s) {
-        Edge e = (Edge)o;
-        if (e == null) return;
-        Vertex u = e.u;
-        Vertex v = e.v;
-        if (!v.visited) {
-            e.label = "treeEdge";
-            edges.add(e);
-            v.p = u;
-            ExploreVertex(v, s);
-        } else if (v.f == 0) {
-            e.label = "backEdge";
-            edges.add(e);
-        } else if (v.d > u.d) {
-            e.label = "forwardEdge";
-            edges.add(e);
-        } else {
-            e.label = "crossEdge";
-            edges.add(e);
-        }
-    }
     private List<Vertex> Sort() {
         List<Vertex> sortedVertices = new ArrayList<>();
         for (Vertex v : vertices.values())
@@ -153,6 +106,7 @@ class Graph {
         });
         return sortedVertices;
     }
+    
     public void DFSIterative() {
         Reset();
         Stack<Vertex> s = new Stack<>();
@@ -184,6 +138,7 @@ class Graph {
             }
         }
     }
+    
     @Override
     public String toString() {
         String str = new String();
@@ -197,6 +152,7 @@ class Graph {
         return str;
     }
 }
+
 public class DFS {
     public static void main(String[] args) {
         Graph g = new Graph();
